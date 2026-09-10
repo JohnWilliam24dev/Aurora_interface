@@ -7,6 +7,7 @@ Este projeto foi desenvolvido para a disciplina de **Desenvolvimento de Sistemas
 ### Frontend
 - **HTML**, **CSS**, **JavaScript**: Linguagens principais para a construção da interface do usuário.
 - **Bootstrap**: Biblioteca utilizada para estilização e desenvolvimento responsivo.
+- *(Em migração para **Angular** + **TypeScript**)*
 
 ### Backend
 - **Kotlin**: Linguagem principal da aplicação backend.

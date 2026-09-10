@@ -1,0 +1,20 @@
+// Design tokens extraídos do projeto legado (styles_gerais / styles_especificos)
+// Fonte única da verdade para cores, tipografia e breakpoints.
+
+// Cores
+$color-black: #000000;
+$color-white: #ffffff;
+$color-yellow-primary: #ebd96b; // banners, títulos de seção, botão "Salvar Alterações"
+$color-yellow-secondary: #e5c643; // patrocinadores, newsletter
+$color-gray-text: #8e8e8e; // itens de rodapé
+$color-error: #ff0000;
+
+// Tipografia
+$font-primary: "Poppins", sans-serif;
+$font-secondary: "Be Vietnam Pro", sans-serif; // usada em carrinho/pedidos
+
+// Breakpoints (mobile-first via mixins em _mixins.scss)
+$breakpoint-xl: 1200px;
+$breakpoint-lg: 992px;
+$breakpoint-md: 768px;
+$breakpoint-sm: 576px;

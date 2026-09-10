@@ -1,0 +1,26 @@
+@use "tokens" as t;
+
+// Mixins de responsividade (desktop-first, replicando os @media do CSS legado)
+@mixin xl {
+  @media (max-width: t.$breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: t.$breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: t.$breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (max-width: t.$breakpoint-sm) {
+    @content;
+  }
+}

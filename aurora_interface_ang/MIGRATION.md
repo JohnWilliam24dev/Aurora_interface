@@ -54,10 +54,10 @@ src/
 - [x] **Fase 1 — Fundação**: scaffold Angular + SCSS, tokens de design,
       `HttpClient` + `environment`, interceptor de erro, `ProdutoService`,
       `AuthService`, `authGuard`, validators customizados.
-- [ ] **Fase 2 — Core restante**: `ClienteService`, `FuncionarioService`,
-      `EnderecoService`, `CarrinhoService`, `ItemCarrinhoService`,
-      `SimulacaoCompraService`, `ItemSimulacaoService` (equivalentes aos
-      demais `Gateway/*.js`).
+- [x] **Fase 2 — Core restante**: `ClienteService` (com `login(email, senha)`),
+      `FuncionarioService` (com `login(cpf, senha)`), `EnderecoService`,
+      `CarrinhoService`, `ItemCarrinhoService`, `SimulacaoCompraService`,
+      `ItemSimulacaoService` (equivalentes aos demais `Gateway/*.js`).
 - [ ] **Fase 3 — Shell/Shared UI**: `HeaderComponent` (com popups como
       componentes filhos: consumidor logado/deslogado, funcionário por
       cargo, suporte, carrinho), `FooterComponent`, layout raiz (`app.html`).
@@ -78,11 +78,11 @@ src/
 | `Config/AxiosClient.js` | `provideHttpClient` + `environment.ts` | ✅ |
 | `Infrastructure/Entities/*.js` | `core/models/*.model.ts` | ✅ (Produto, Cliente, Funcionario, Endereco, Carrinho/Item*) |
 | `Infrastructure/Gateway/ProdutoGateway.js` + `*ProdutoService.js` | `core/services/produto.service.ts` | ✅ |
-| `Infrastructure/Gateway/ClienteGateway.js` + `Cadastro/LoginConsumidorService.js` | `core/services/cliente.service.ts` | ⏳ |
-| `Infrastructure/Gateway/FuncionarioGateway.js` + `Cadastro/LoginFuncionarioService.js` | `core/services/funcionario.service.ts` | ⏳ |
-| `Infrastructure/Gateway/EnderecoGateway.js` | `core/services/endereco.service.ts` | ⏳ |
-| `Infrastructure/Gateway/CarrinhoGateway.js` / `ItemCarrinhoGateway.js` | `core/services/carrinho.service.ts` | ⏳ |
-| `Infrastructure/Gateway/SimulacaoCompraGateway.js` / `ItemSimulacaoGateway.js` | `core/services/simulacao-compra.service.ts` | ⏳ |
+| `Infrastructure/Gateway/ClienteGateway.js` + `Cadastro/LoginConsumidorService.js` | `core/services/cliente.service.ts` (`login(email, senha)`) | ✅ |
+| `Infrastructure/Gateway/FuncionarioGateway.js` + `Cadastro/LoginFuncionarioService.js` | `core/services/funcionario.service.ts` (`login(cpf, senha)`) | ✅ |
+| `Infrastructure/Gateway/EnderecoGateway.js` | `core/services/endereco.service.ts` | ✅ |
+| `Infrastructure/Gateway/CarrinhoGateway.js` / `ItemCarrinhoGateway.js` | `core/services/carrinho.service.ts` / `item-carrinho.service.ts` | ✅ |
+| `Infrastructure/Gateway/SimulacaoCompraGateway.js` / `ItemSimulacaoGateway.js` | `core/services/simulacao-compra.service.ts` / `item-simulacao.service.ts` | ✅ |
 | `Infrastructure/Validators/ValidarUsuario.js` | `shared/validators/aurora-validators.ts` | ✅ |
 | `Infrastructure/Persistence/VerificarPersistence.js` + `EncerrarSessao.js` | `core/services/auth.service.ts` | ✅ |
 | `Infrastructure/Persistence/VericacaoAcesso.js` | `core/guards/auth.guard.ts` | ✅ |

@@ -1,0 +1,55 @@
+<section class="pagina_form">
+  <form class="cartao_form" [formGroup]="form" (ngSubmit)="enviar()">
+    <h1 class="titulo">Crie sua conta para começar!</h1>
+
+    <div class="campos">
+      <div class="campo">
+        <label for="nome">Digite o seu nome:</label>
+        <input id="nome" type="text" formControlName="nome" placeholder="Exemplo: Roberto da Silva" />
+        <div class="erro">{{ primeiroErro('nome') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="email">Digite o seu email:</label>
+        <input
+          id="email"
+          type="text"
+          formControlName="email"
+          placeholder="Exemplo: RobertoSilva22@exemplo.com"
+        />
+        <div class="erro">{{ primeiroErro('email') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Digite a sua senha:</label>
+        <input
+          id="senha"
+          type="password"
+          formControlName="senha"
+          placeholder="Mínimo 8 caracteres, com maiúscula, minúscula e símbolo."
+        />
+        <div class="erro">{{ primeiroErro('senha') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="senha_confi">Digite novamente a sua senha:</label>
+        <input
+          id="senha_confi"
+          type="password"
+          formControlName="senha_confi"
+          placeholder="Confirme sua senha"
+        />
+        <div class="erro">{{ erroSenhaConfirmada() }}</div>
+      </div>
+    </div>
+
+    <p class="termos">
+      Ao se cadastrar, você declara que leu e concorda com os Termos e
+      Condições, e está ciente de que seus dados serão tratados conforme a
+      nossa Política de Privacidade.
+    </p>
+
+    <button type="submit" [disabled]="enviando">Cadastrar</button>
+    <a routerLink="/login" class="link_login">Já tem uma conta? Faça o login aqui.</a>
+  </form>
+</section>

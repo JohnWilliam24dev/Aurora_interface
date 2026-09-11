@@ -1,0 +1,27 @@
+<section
+  class="pagina_login"
+  [style.background-image]="
+    'url(' + assetUrl('campo-de-girassol-bonito-com-um-ceu-azul-claro.jpg') + ')'
+  "
+>
+  <form class="cartao_login" [formGroup]="form" (ngSubmit)="enviar()">
+    <h1 class="titulo">Bem-vindo(a) de volta!</h1>
+
+    <div class="campos">
+      <div class="campo">
+        <label for="email">Email:</label>
+        <input id="email" type="text" formControlName="email" placeholder="Exemplo: email@email.com" />
+        <div class="erro">{{ primeiroErro('email') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Senha:</label>
+        <input id="senha" type="password" formControlName="senha" placeholder="********" />
+        <div class="erro">{{ primeiroErro('senha') }}</div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="enviando">Entrar</button>
+    <a routerLink="/cadastro" class="link_cadastro">Crie sua conta aqui!</a>
+  </form>
+</section>

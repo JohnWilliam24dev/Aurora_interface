@@ -1,0 +1,42 @@
+@use "styles/form" as f;
+
+.pagina_form {
+  @include f.form-page;
+}
+
+.cartao_form {
+  @include f.form-card;
+  max-width: 32em;
+}
+
+.titulo {
+  @include f.form-title;
+}
+
+.campos {
+  @include f.form-fields;
+}
+
+.campo {
+  @include f.form-field;
+}
+
+.campo label {
+  @include f.form-label;
+}
+
+.campo input {
+  @include f.form-input;
+}
+
+.campo select {
+  @include f.form-select;
+}
+
+.erro {
+  @include f.form-error;
+}
+
+button {
+  @include f.form-button;
+}

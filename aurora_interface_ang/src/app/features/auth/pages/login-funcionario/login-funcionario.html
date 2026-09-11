@@ -1,0 +1,21 @@
+<section class="pagina_form">
+  <form class="cartao_form" [formGroup]="form" (ngSubmit)="enviar()">
+    <h1 class="titulo">Login Funcionário</h1>
+
+    <div class="campos">
+      <div class="campo">
+        <label for="cpf">Digite o seu CPF:</label>
+        <input id="cpf" type="text" formControlName="cpf" placeholder="Exemplo: 08295886520" />
+        <div class="erro">{{ primeiroErro('cpf') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Digite a sua senha:</label>
+        <input id="senha" type="password" formControlName="senha" placeholder="********" />
+        <div class="erro">{{ primeiroErro('senha') }}</div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="enviando">Entrar</button>
+  </form>
+</section>

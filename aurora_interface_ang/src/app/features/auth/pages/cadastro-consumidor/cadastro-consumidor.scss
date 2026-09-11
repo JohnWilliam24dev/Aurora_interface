@@ -1,0 +1,51 @@
+@use "styles/form" as f;
+@use "styles/tokens" as t;
+
+.pagina_form {
+  @include f.form-page;
+}
+
+.cartao_form {
+  @include f.form-card;
+  max-width: 32em;
+}
+
+.titulo {
+  @include f.form-title;
+  font-size: 1.4em;
+}
+
+.campos {
+  @include f.form-fields;
+}
+
+.campo {
+  @include f.form-field;
+}
+
+.campo label {
+  @include f.form-label;
+}
+
+.campo input {
+  @include f.form-input;
+}
+
+.erro {
+  @include f.form-error;
+}
+
+.termos {
+  font-size: 0.85em;
+  color: t.$color-gray-text;
+  text-align: center;
+  margin: 0;
+}
+
+button {
+  @include f.form-button;
+}
+
+.link_login {
+  @include f.form-link;
+}

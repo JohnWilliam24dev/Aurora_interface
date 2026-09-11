@@ -1,0 +1,65 @@
+<section class="pagina_form">
+  <form class="cartao_form" [formGroup]="form" (ngSubmit)="enviar()">
+    <h1 class="titulo">Cadastro de Funcionário</h1>
+
+    <div class="campos">
+      <div class="campo">
+        <label for="nome">Digite o nome do funcionário:</label>
+        <input id="nome" type="text" formControlName="nome" placeholder="Exemplo: Roberto da Silva" />
+        <div class="erro">{{ primeiroErro('nome') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="email">Digite o email do funcionário:</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Exemplo: RobertoSilva22@exemplo.com"
+        />
+        <div class="erro">{{ primeiroErro('email') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="cpf">Digite o CPF do funcionário:</label>
+        <input id="cpf" type="text" formControlName="cpf" placeholder="Exemplo: 08526523654" />
+        <div class="erro">{{ primeiroErro('cpf') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Digite a senha provisória do funcionário:</label>
+        <input
+          id="senha"
+          type="password"
+          formControlName="senha"
+          placeholder="Mínimo 8 caracteres, com maiúscula, minúscula e símbolo."
+        />
+        <div class="erro">{{ primeiroErro('senha') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="senha_confi">Digite novamente a senha provisória:</label>
+        <input
+          id="senha_confi"
+          type="password"
+          formControlName="senha_confi"
+          placeholder="Confirme sua senha"
+        />
+        <div class="erro">{{ erroSenhaConfirmada() }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="cargo">Digite o cargo do funcionário:</label>
+        <select id="cargo" formControlName="cargo">
+          <option value="" disabled>Selecione o cargo</option>
+          @for (opcao of cargos; track opcao.valor) {
+            <option [value]="opcao.valor">{{ opcao.label }}</option>
+          }
+        </select>
+        <div class="erro">{{ primeiroErro('cargo') }}</div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="enviando">Cadastrar</button>
+  </form>
+</section>

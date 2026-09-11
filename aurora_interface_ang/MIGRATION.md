@@ -99,8 +99,11 @@ src/
       componentes filhos: consumidor logado/deslogado, funcionário por
       cargo, suporte, carrinho), `FooterComponent`, shell raiz (`app.html`),
       Bootstrap 5.3.6 instalado (grid `row`/`col-*` usada em todo o legado).
-- [ ] **Fase 4 — Autenticação/Cadastro**: login consumidor, login
-      funcionário, cadastro consumidor, cadastro funcionário.
+- [x] **Fase 4 — Autenticação/Cadastro**: login consumidor, login
+      funcionário, cadastro consumidor, cadastro funcionário. Rotas com
+      lazy loading (`loadComponent`) e `authGuard` (`guest-only` nos logins
+      e cadastro de consumidor; `ADMINISTRADOR_GERAL`/`GERENCIADOR_FUNCIONARIOS`
+      no cadastro de funcionário).
 - [ ] **Fase 5 — Produtos**: listagem (com filtro de categoria),
       detalhe/consumidor, adicionar (admin), editar (admin).
 - [ ] **Fase 6 — Carrinho & Pedidos**.
@@ -125,10 +128,10 @@ src/
 | `Infrastructure/Persistence/VerificarPersistence.js` + `EncerrarSessao.js` | `core/services/auth.service.ts` | ✅ |
 | `Infrastructure/Persistence/VericacaoAcesso.js` | `core/guards/auth.guard.ts` | ✅ |
 | `Infrastructure/Interacoes/HeaderPopUp.js` + `Components/Popups/*.html` | `shared/components/header` + `shared/components/popups/*` (8 componentes) | ✅ |
-| `Infrastructure/Application/LoginConsumidorApplication.js` | `features/auth/pages/login-consumidor` | ⏳ |
-| `Infrastructure/Application/LoginFuncionarioApplication.js` | `features/auth/pages/login-funcionario` | ⏳ |
-| `Infrastructure/Application/CadastroConsumidorApplication.js` | `features/auth/pages/cadastro-consumidor` | ⏳ |
-| `Infrastructure/Application/CadastroFuncionarioApplication.js` | `features/auth/pages/cadastro-funcionario` | ⏳ |
+| `Infrastructure/Application/LoginConsumidorApplication.js` | `features/auth/pages/login-consumidor` | ✅ |
+| `Infrastructure/Application/LoginFuncionarioApplication.js` | `features/auth/pages/login-funcionario` | ✅ |
+| `Infrastructure/Application/CadastroConsumidorApplication.js` | `features/auth/pages/cadastro-consumidor` | ✅ |
+| `Infrastructure/Application/CadastroFuncionarioApplication.js` | `features/auth/pages/cadastro-funcionario` | ✅ |
 | `Infrastructure/Application/EnderecoConsumidorApplication.js` | `features/endereco/pages/cadastro-endereco` | ⏳ |
 | `Infrastructure/Application/AdicionarProdutoApplication.js` | `features/produtos/pages/adicionar-produto` | ⏳ |
 | `Infrastructure/Application/EdicaoProdutoApplication.js` + `Interacoes/EdicaoProduto.js` + `DeletarProdutoApplication.js` | `features/produtos/pages/editar-produto` | ⏳ |

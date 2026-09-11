@@ -1,0 +1,23 @@
+@use "styles/popup" as p;
+
+:host {
+  @include p.popup-deslogado;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.3em;
+}
+
+p {
+  margin: 0;
+  font-size: 1em;
+}
+
+a {
+  width: 100%;
+}
+
+button {
+  @include p.popup-botao;
+}

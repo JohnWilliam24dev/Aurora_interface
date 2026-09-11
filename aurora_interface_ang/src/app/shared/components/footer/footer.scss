@@ -1,0 +1,181 @@
+@use "styles/tokens" as t;
+@use "styles/mixins" as m;
+
+:host {
+  display: block;
+}
+
+footer {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  background-color: t.$color-black;
+
+  padding: 3em;
+
+  flex-wrap: wrap;
+
+  color: t.$color-white;
+  font-family: t.$font-primary;
+}
+
+.conteiner_footer_redes {
+  height: 10em;
+
+  margin-right: auto;
+  margin-left: 5em;
+}
+
+.lista_redes {
+  width: 100%;
+  height: 3em;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+
+  border-radius: 10px;
+
+  margin: 0;
+  padding: 0;
+
+  gap: 1.5em;
+
+  list-style: none;
+}
+
+.lista_redes li {
+  width: 2.6em;
+  height: 2.6em;
+
+  background-color: t.$color-yellow-secondary;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lista_redes figure {
+  width: 60%;
+  height: 60%;
+
+  margin: 0;
+  margin-bottom: 0.2em;
+  padding: 0;
+}
+
+.lista_redes img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.conteiner_footer_info {
+  height: 80%;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+
+  margin-right: 5em;
+}
+
+.conteiner_footer_info ul {
+  height: 80%;
+}
+
+.conteiner_footer_info li {
+  color: t.$color-gray-text;
+
+  padding: 0.5em;
+
+  list-style: none;
+}
+
+.conteiner_footer_info li.titulo_config {
+  color: t.$color-white;
+}
+
+@include m.xl {
+  .conteiner_footer_redes h3 {
+    font-size: 1.3em;
+  }
+
+  .conteiner_footer_redes p {
+    font-size: 0.9em;
+  }
+
+  .conteiner_footer_info li {
+    font-size: 0.9em;
+  }
+}
+
+@include m.lg {
+  footer {
+    flex-direction: column;
+  }
+
+  .conteiner_footer_info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 2em;
+    margin: auto;
+
+    order: 1;
+  }
+
+  .conteiner_footer_redes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 4em 0;
+    margin: auto;
+
+    order: 2;
+  }
+
+  .lista_redes {
+    justify-content: center;
+  }
+}
+
+@include m.md {
+  footer {
+    padding: 1em;
+  }
+
+  .conteiner_footer_redes h3 {
+    font-size: 0.8em;
+  }
+
+  .conteiner_footer_redes p {
+    font-size: 0.6em;
+  }
+
+  .conteiner_footer_info li {
+    font-size: 0.6em;
+  }
+
+  .lista_redes li {
+    width: 2em;
+    height: 2em;
+  }
+
+  .lista_redes figure {
+    width: 70%;
+    height: 70%;
+    margin: auto;
+  }
+}

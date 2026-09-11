@@ -25,7 +25,44 @@ antiga é removida até que sua contraparte em Angular esteja validada.
 - Nomenclatura de arquivos: `kebab-case`, sufixo por tipo
   (`.model.ts`, `.service.ts`, `.guard.ts`, `.interceptor.ts`).
 
-## Estrutura de pastas
+## Simplificações conscientes (Fase 3)
+
+- **Posicionamento dos popups**: no legado, cada popup era injetado solto no
+  `<body>` e posicionado com coordenadas fixas (`top: 5.5em; left: 65%`),
+  recalculadas em 4 breakpoints diferentes. Na versão Angular, cada popup
+  vive dentro do próprio `<li>` do ícone (`position: relative` no `<li>`,
+  `position: absolute` no popup via `styles/_popup.scss`), então não precisa
+  mais de coordenadas mágicas por breakpoint.
+- **`body { display: none }` até checar permissão** (`style_gerais_permissao_acesso.css`
+  + `VericacaoAcesso.js` fazendo `document.body.style.display = 'block'`): não
+  foi portado. Esse hack existia porque o legado só sabia se a página era
+  permitida *depois* de montar o DOM. Com `authGuard` (`CanActivateFn`), a
+  permissão é resolvida *antes* da rota ativar — o componente nunca chega a
+  renderizar se não tiver permissão, então o "flash de conteúdo proibido" que
+  o hack evitava não ocorre mais.
+
+## Rotas planejadas (usadas nos `routerLink` do Header/popups)
+
+Ainda não implementadas (entram nas Fases 4–8), mas os componentes já
+referenciam estes paths para não travar o trabalho:
+
+| Path | Página (legado) |
+|---|---|
+| `/` | `index.html` |
+| `/login` | `tela_login_consumidor.html` |
+| `/cadastro` | `tela_cadastro_consumidor.html` |
+| `/funcionario/login` | `tela_login_funcionario.html` |
+| `/funcionario/cadastro` | `employer.tela_cadastro_funcionario.html` |
+| `/produtos` | `tela_listar_produto.html` |
+| `/produtos/:id` | `tela_produto_consumidor.html` |
+| `/produtos/adicionar` | `employer.tela_adicionar_produto.html` |
+| `/produtos/:id/editar` | `employer.tela_edicao_produto.html` |
+| `/carrinho` | `consumer.tela_carrinho.html` |
+| `/pedidos` | `consumer.tela_pedidos.html` |
+| `/endereco/cadastro` | (formulário de endereço) |
+| `/acesso-negado` | `acesso-negado.html` |
+
+
 
 ```
 src/
@@ -58,9 +95,10 @@ src/
       `FuncionarioService` (com `login(cpf, senha)`), `EnderecoService`,
       `CarrinhoService`, `ItemCarrinhoService`, `SimulacaoCompraService`,
       `ItemSimulacaoService` (equivalentes aos demais `Gateway/*.js`).
-- [ ] **Fase 3 — Shell/Shared UI**: `HeaderComponent` (com popups como
+- [x] **Fase 3 — Shell/Shared UI**: `HeaderComponent` (com os 8 popups como
       componentes filhos: consumidor logado/deslogado, funcionário por
-      cargo, suporte, carrinho), `FooterComponent`, layout raiz (`app.html`).
+      cargo, suporte, carrinho), `FooterComponent`, shell raiz (`app.html`),
+      Bootstrap 5.3.6 instalado (grid `row`/`col-*` usada em todo o legado).
 - [ ] **Fase 4 — Autenticação/Cadastro**: login consumidor, login
       funcionário, cadastro consumidor, cadastro funcionário.
 - [ ] **Fase 5 — Produtos**: listagem (com filtro de categoria),
@@ -86,7 +124,7 @@ src/
 | `Infrastructure/Validators/ValidarUsuario.js` | `shared/validators/aurora-validators.ts` | ✅ |
 | `Infrastructure/Persistence/VerificarPersistence.js` + `EncerrarSessao.js` | `core/services/auth.service.ts` | ✅ |
 | `Infrastructure/Persistence/VericacaoAcesso.js` | `core/guards/auth.guard.ts` | ✅ |
-| `Infrastructure/Interacoes/HeaderPopUp.js` + `Components/Popups/*.html` | `shared/components/header` + `shared/components/popups/*` | ⏳ |
+| `Infrastructure/Interacoes/HeaderPopUp.js` + `Components/Popups/*.html` | `shared/components/header` + `shared/components/popups/*` (8 componentes) | ✅ |
 | `Infrastructure/Application/LoginConsumidorApplication.js` | `features/auth/pages/login-consumidor` | ⏳ |
 | `Infrastructure/Application/LoginFuncionarioApplication.js` | `features/auth/pages/login-funcionario` | ⏳ |
 | `Infrastructure/Application/CadastroConsumidorApplication.js` | `features/auth/pages/cadastro-consumidor` | ⏳ |

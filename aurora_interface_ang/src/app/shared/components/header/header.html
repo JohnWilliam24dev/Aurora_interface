@@ -1,0 +1,78 @@
+<header class="row">
+  <div class="conteiner_logo col-md-3 col-3">
+    <figure>
+      <a routerLink="/"><img [src]="assetUrl('Aurora-logo-500x500.png')" alt="aurora_logo" /></a>
+    </figure>
+  </div>
+
+  <div class="conteiner_input_buscar col-lg-5 d-lg-flex d-none">
+    <input class="d-lg-block d-none" type="text" placeholder="Encontre o que combina com você!" />
+    <button class="btn_buscar d-lg-block d-none" type="button">
+      <figure><img [src]="assetUrl('search_50x50.png')" alt="search_icon" /></figure>
+    </button>
+  </div>
+
+  <nav class="conteiner_nav col-lg-2 col-md-3 col-4">
+    <ul class="conteiner_nav_option">
+      <li class="d-lg-none">
+        <figure>
+          <a href="#"><img [src]="assetUrl('search_black.png')" alt="search_icon" /></a>
+        </figure>
+      </li>
+
+      <li class="conteiner_popup_wrapper">
+        <figure (click)="toggleSuporte()">
+          <img [src]="assetUrl('apoio-suporte_100x100.png')" alt="atendimento_icon" />
+        </figure>
+        @if (popupAberto() === 'suporte') {
+          <app-popup-suporte-deslogado />
+        }
+      </li>
+
+      <li class="conteiner_popup_wrapper">
+        <figure (click)="clicarCarrinho()">
+          <img [src]="assetUrl('carrinho_100x100.png')" alt="carrinho_icon" />
+        </figure>
+        @if (popupAberto() === 'carrinho') {
+          @switch (session().userType) {
+            @case ('deslogado') {
+              <app-popup-carrinho-deslogado />
+            }
+            @case ('employer') {
+              <app-popup-funcionario-carrinho />
+            }
+          }
+        }
+      </li>
+
+      <li class="conteiner_popup_wrapper">
+        <figure (click)="toggleUser()">
+          <img [src]="assetUrl('user_100x100.png')" alt="user_icon" />
+        </figure>
+        @if (popupAberto() === 'user') {
+          @switch (session().userType) {
+            @case ('deslogado') {
+              <app-popup-consumidor-deslogado />
+            }
+            @case ('costumer') {
+              <app-popup-consumidor-logado [nome]="nomeUsuario()" (sair)="sair()" />
+            }
+            @case ('employer') {
+              @switch (cargo()) {
+                @case ('ADMINISTRADOR_GERAL') {
+                  <app-popup-funcionario-adm [nome]="nomeUsuario()" (sair)="sair()" />
+                }
+                @case ('GERENCIADOR_FUNCIONARIOS') {
+                  <app-popup-funcionario-geren-func [nome]="nomeUsuario()" (sair)="sair()" />
+                }
+                @case ('GERENCIADOR_ROUPAS') {
+                  <app-popup-funcionario-geren-produ [nome]="nomeUsuario()" (sair)="sair()" />
+                }
+              }
+            }
+          }
+        }
+      </li>
+    </ul>
+  </nav>
+</header>

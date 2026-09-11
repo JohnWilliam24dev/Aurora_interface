@@ -1,0 +1,10 @@
+<div class="titulo_menu_pop">
+  <h2>Bem vindo(a), {{ nome() }}</h2>
+</div>
+<ul>
+  <li><a routerLink="/pedidos">Meus Pedidos</a></li>
+  <li><a href="#">Configurações</a></li>
+  <li class="option_encerrar_sessao">
+    <button type="button" (click)="sair.emit()">Sair</button>
+  </li>
+</ul>

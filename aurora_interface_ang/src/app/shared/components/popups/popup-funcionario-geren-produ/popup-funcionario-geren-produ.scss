@@ -1,0 +1,32 @@
+@use "styles/popup" as p;
+
+:host {
+  @include p.popup-menu;
+}
+
+.titulo_menu_pop {
+  @include p.popup-titulo;
+}
+
+.titulo_menu_pop h2 {
+  margin: 0;
+  font-size: 1.05em;
+}
+
+ul {
+  @include p.popup-lista;
+}
+
+a {
+  font-size: 1.05em;
+}
+
+.option_encerrar_sessao {
+  margin-top: 1em;
+}
+
+.option_encerrar_sessao button {
+  all: unset;
+  cursor: pointer;
+  font-size: 1.05em;
+}

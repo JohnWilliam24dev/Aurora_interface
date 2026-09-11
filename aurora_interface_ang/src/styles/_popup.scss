@@ -1,0 +1,73 @@
+@use "tokens" as t;
+
+// Base compartilhada por todos os popups do header.
+// Substitui .pop_up_usuario_deslogado / .pop_up_usuario_logado do legado,
+// mas com posicionamento relativo ao próprio ícone (position: relative no
+// <li> pai) em vez de coordenadas fixas por breakpoint.
+@mixin popup-base {
+  position: absolute;
+  top: calc(100% + 0.8em);
+  right: 0;
+  z-index: 1000;
+
+  background: t.$color-white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1em;
+
+  font-family: t.$font-primary;
+}
+
+// Popups de "boas-vindas" (deslogado): texto centralizado + botões.
+@mixin popup-deslogado {
+  @include popup-base;
+  width: 18em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6em;
+  text-align: center;
+}
+
+// Popups de menu (usuário/funcionário logado): lista de links à esquerda.
+@mixin popup-menu {
+  @include popup-base;
+  width: 16em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3em;
+}
+
+@mixin popup-titulo {
+  width: 100%;
+  margin: 0 0 0.6em 0;
+  padding-bottom: 0.6em;
+  font-size: 1.1em;
+  border-bottom: 1px solid t.$color-black;
+}
+
+@mixin popup-lista {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
+
+@mixin popup-botao {
+  width: 100%;
+  height: 3em;
+
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+
+  background-color: t.$color-black;
+  color: t.$color-white;
+}

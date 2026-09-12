@@ -2,12 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import {
-  Produto,
-  ProdutoDTO,
-  produtoFromDTO,
-  produtoToDTO,
-} from '../models/produto.model';
+import { Produto, ProdutoDTO, ProdutoPayload, produtoFromDTO } from '../models/produto.model';
 
 /**
  * Substitui, de forma consolidada, o `ProdutoGateway` + os `*Service` legados
@@ -31,15 +26,13 @@ export class ProdutoService {
       .pipe(map(produtoFromDTO));
   }
 
-  criar(produto: Produto): Observable<Produto> {
-    return this.http
-      .post<ProdutoDTO>(this.baseUrl, produtoToDTO(produto))
-      .pipe(map(produtoFromDTO));
+  criar(payload: ProdutoPayload): Observable<Produto> {
+    return this.http.post<ProdutoDTO>(this.baseUrl, payload).pipe(map(produtoFromDTO));
   }
 
-  atualizar(id: number | string, produto: Produto): Observable<Produto> {
+  atualizar(id: number | string, payload: ProdutoPayload): Observable<Produto> {
     return this.http
-      .put<ProdutoDTO>(`${this.baseUrl}/${id}`, produtoToDTO(produto))
+      .put<ProdutoDTO>(`${this.baseUrl}/${id}`, payload)
       .pipe(map(produtoFromDTO));
   }
 

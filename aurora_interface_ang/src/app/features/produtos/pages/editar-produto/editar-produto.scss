@@ -1,0 +1,263 @@
+@use "styles/tokens" as t;
+@use "styles/mixins" as m;
+
+:host {
+  display: block;
+  font-family: t.$font-primary;
+}
+
+.mensagem_estado {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 3em 0;
+}
+
+.product-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  position: relative;
+}
+
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-image {
+  width: 100%;
+  max-width: 600px;
+  max-height: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  object-fit: cover;
+}
+
+.btn_alterar_imagem {
+  height: 3.4em;
+  width: 100%;
+  max-width: 600px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.2em;
+  background-color: t.$color-black;
+  padding: 25px;
+  color: t.$color-white;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-header {
+  border-bottom: 1px solid t.$color-black;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.product-title {
+  width: 100%;
+  height: 3em;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  border: none;
+  border-bottom: 1px solid t.$color-black;
+  background: transparent;
+}
+
+.product-title:focus {
+  outline: none;
+}
+
+.product-pricing {
+  margin-bottom: 30px;
+}
+
+.price {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid t.$color-black;
+  background: transparent;
+  color: t.$color-black;
+  font-size: clamp(24px, 5vw, 40px);
+  font-weight: 500;
+  padding: 8px 0;
+}
+
+.price:focus {
+  outline: none;
+}
+
+.size-selector {
+  margin-bottom: 40px;
+}
+
+.size-options {
+  display: flex;
+  gap: 8px;
+}
+
+.size-option {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.size-option.active {
+  border-color: t.$color-black;
+  font-weight: 600;
+}
+
+.cart-actions {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.add-to-cart {
+  width: 100%;
+  padding: clamp(18px, 4vw, 25px);
+  font-size: clamp(22px, 5vw, 32px);
+  border-radius: 20px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.5);
+  color: t.$color-white;
+  border: none;
+  cursor: not-allowed;
+}
+
+.consumer-notice {
+  font-size: 16px;
+  color: rgba(241, 0, 0, 0.95);
+  margin-top: 10px;
+}
+
+.product-description {
+  grid-column: 1 / -1;
+  padding-top: 40px;
+}
+
+.product-description h2 {
+  font-size: clamp(26px, 5vw, 36px);
+  text-decoration: underline;
+  margin-bottom: 30px;
+}
+
+.description-content {
+  font-size: 24px;
+  line-height: 1.6;
+}
+
+.description-content textarea {
+  height: 14em;
+  width: 100%;
+  padding: 0.8em;
+  padding-left: 20px;
+  border: t.$color-black 1px solid;
+  border-radius: 10px;
+  font-family: t.$font-primary;
+  font-size: 0.7em;
+}
+
+.description-content textarea:focus {
+  outline: none;
+}
+
+.erro {
+  min-height: 1.2em;
+  color: t.$color-error;
+  font-size: 0.85em;
+}
+
+.conteiner_btn {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2em;
+  margin-top: 2em;
+}
+
+.btn_salvar {
+  height: 3.4em;
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.5em;
+  background-color: t.$color-black;
+  color: t.$color-white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn_apagar {
+  height: 3.4em;
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.5em;
+  background-color: t.$color-white;
+  color: t.$color-black;
+  border: 1px solid t.$color-black;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+@include m.lg {
+  .product-page {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include m.md {
+  .product-title {
+    font-size: 28px;
+  }
+
+  .price {
+    font-size: 36px;
+  }
+
+  .add-to-cart {
+    font-size: 24px;
+    padding: 20px;
+  }
+
+  .size-option {
+    width: clamp(40px, 8vw, 50px);
+    height: clamp(40px, 8vw, 50px);
+    font-size: clamp(14px, 2vw, 18px);
+  }
+
+  .product-description h2 {
+    font-size: 28px;
+  }
+}

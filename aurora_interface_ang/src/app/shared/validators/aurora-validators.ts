@@ -14,14 +14,24 @@ export function nomeValidator(minLength = 2, maxLength = 100): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const valor = (control.value ?? '').toString().trim();
     if (!valor) return { required: '*Campo obrigatório' };
-    if (valor.length < minLength) {
-      return { minlength: `*O campo deve conter no mínimo ${minLength} caracteres` };
-    }
-    if (valor.length > maxLength) {
-      return { maxlength: `*O campo deve conter no máximo ${maxLength} caracteres` };
-    }
-    return null;
+    const erro = checkTamanhoTexto(valor, minLength, maxLength);
+    return erro ? { minlength: erro } : null;
   };
+}
+
+/**
+ * Checagem pura de comprimento (sem exigir "obrigatório"), reaproveitada
+ * por telas onde o campo é opcional — ex.: edição de produto, em que campo
+ * vazio significa "manter valor atual" em vez de erro de validação.
+ */
+export function checkTamanhoTexto(valor: string, minLength = 2, maxLength = 100): string | null {
+  if (valor.length < minLength) {
+    return `*O campo deve conter no mínimo ${minLength} caracteres`;
+  }
+  if (valor.length > maxLength) {
+    return `*O campo deve conter no máximo ${maxLength} caracteres`;
+  }
+  return null;
 }
 
 export function descricaoValidator(): ValidatorFn {
@@ -105,13 +115,15 @@ export function numeroCasaValidator(): ValidatorFn {
 }
 
 export function precoValidator(): ValidatorFn {
-  const regex = /^\d{1,5}(,\d{1,2})?$/;
   return (control: AbstractControl): ValidationErrors | null => {
-    if (!regex.test(control.value ?? '')) {
-      return { preco: '*Preço inválido!' };
-    }
-    return null;
+    return checkPreco(control.value ?? '') ? { preco: checkPreco(control.value ?? '') } : null;
   };
+}
+
+/** Checagem pura de formato de preço ("108,00"), reaproveitada na edição de produto. */
+export function checkPreco(valor: string): string | null {
+  const regex = /^\d{1,5}(,\d{1,2})?$/;
+  return regex.test(valor) ? null : '*Preço inválido!';
 }
 
 export function arrayNaoVazioValidator(): ValidatorFn {
@@ -130,11 +142,14 @@ export function imagemValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const arquivo: File | null = control.value;
     if (!arquivo) return { required: '*Campo obrigatório' };
-    if (!TIPOS_IMAGEM_PERMITIDOS.includes(arquivo.type)) {
-      return {
-        imagem: '*Arquivo inválido. Selecione uma imagem (jpg, png, gif, bmp, webp).',
-      };
-    }
-    return null;
+    const erro = checkImagem(arquivo);
+    return erro ? { imagem: erro } : null;
   };
+}
+
+/** Checagem pura de tipo de arquivo de imagem, reaproveitada na edição de produto. */
+export function checkImagem(arquivo: File): string | null {
+  return TIPOS_IMAGEM_PERMITIDOS.includes(arquivo.type)
+    ? null
+    : '*Arquivo inválido. Selecione uma imagem (jpg, png, gif, bmp, webp).';
 }

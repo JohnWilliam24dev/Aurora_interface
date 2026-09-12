@@ -1,0 +1,76 @@
+<section class="pagina_form">
+  <form class="cartao_form" [formGroup]="form" (ngSubmit)="enviar()">
+    <h1 class="titulo">Adicionar Produto</h1>
+
+    <div class="campos">
+      <div class="campo">
+        <label for="nome">Digite o nome do produto:</label>
+        <input
+          id="nome"
+          type="text"
+          formControlName="nome"
+          placeholder="Exemplo: Vestido Floral Branco com Rosas"
+        />
+        <div class="erro">{{ primeiroErro('nome') }}</div>
+      </div>
+
+      <div class="linha_campos">
+        <div class="campo">
+          <label for="preco">Digite o preço:</label>
+          <input id="preco" type="text" formControlName="preco" placeholder="Exemplo: 108,00" />
+          <div class="erro">{{ primeiroErro('preco') }}</div>
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Selecione a categoria:</label>
+          <select id="categoria" formControlName="categoria">
+            <option value="" disabled>Selecione a categoria</option>
+            @for (opcao of categorias; track opcao.valor) {
+              <option [value]="opcao.valor">{{ opcao.label }}</option>
+            }
+          </select>
+          <div class="erro">{{ primeiroErro('categoria') }}</div>
+        </div>
+
+        <div class="campo">
+          <label>Selecione o(s) tamanho(s):</label>
+          <div class="checkbox_tamanhos">
+            @for (tamanho of tamanhos; track tamanho) {
+              <label class="checkbox_tamanho">
+                <input
+                  type="checkbox"
+                  [checked]="form.controls.tamanho.value.includes(tamanho)"
+                  (change)="alternarTamanho(tamanho, $any($event.target).checked)"
+                />
+                {{ tamanho }}
+              </label>
+            }
+          </div>
+          <div class="erro">{{ primeiroErro('tamanho') }}</div>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="descricao">Digite a descrição do produto:</label>
+        <textarea
+          id="descricao"
+          formControlName="descricao"
+          placeholder="Descreva a roupa (cor, estampa, estilo...)"
+        ></textarea>
+        <div class="erro">{{ primeiroErro('descricao') }}</div>
+      </div>
+
+      <div class="campo">
+        <label>Adicione a imagem:</label>
+        <div class="upload_imagem">
+          <h3>Faça upload de uma foto</h3>
+          <p>Selecione o arquivo</p>
+          <input type="file" accept="image/*" (change)="onImagemSelecionada($event)" />
+        </div>
+        <div class="erro">{{ primeiroErro('imagem') }}</div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="enviando">Adicionar produto</button>
+  </form>
+</section>

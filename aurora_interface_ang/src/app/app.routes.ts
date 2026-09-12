@@ -38,4 +38,36 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { allow: ['ADMINISTRADOR_GERAL', 'GERENCIADOR_FUNCIONARIOS'] },
   },
+  {
+    path: 'produtos',
+    loadComponent: () =>
+      import('./features/produtos/pages/listar-produtos/listar-produtos').then(
+        (m) => m.ListarProdutos,
+      ),
+  },
+  {
+    path: 'produtos/adicionar',
+    loadComponent: () =>
+      import('./features/produtos/pages/adicionar-produto/adicionar-produto').then(
+        (m) => m.AdicionarProduto,
+      ),
+    canActivate: [authGuard],
+    data: { allow: ['ADMINISTRADOR_GERAL', 'GERENCIADOR_ROUPAS'] },
+  },
+  {
+    path: 'produtos/:id/editar',
+    loadComponent: () =>
+      import('./features/produtos/pages/editar-produto/editar-produto').then(
+        (m) => m.EditarProduto,
+      ),
+    canActivate: [authGuard],
+    data: { allow: ['ADMINISTRADOR_GERAL', 'GERENCIADOR_ROUPAS'] },
+  },
+  {
+    path: 'produtos/:id',
+    loadComponent: () =>
+      import('./features/produtos/pages/produto-detalhe/produto-detalhe').then(
+        (m) => m.ProdutoDetalhe,
+      ),
+  },
 ];

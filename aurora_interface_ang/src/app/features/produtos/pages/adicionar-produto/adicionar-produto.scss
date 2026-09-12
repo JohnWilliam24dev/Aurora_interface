@@ -1,0 +1,101 @@
+@use "styles/form" as f;
+@use "styles/tokens" as t;
+@use "styles/mixins" as m;
+
+.pagina_form {
+  @include f.form-page;
+}
+
+.cartao_form {
+  @include f.form-card;
+  max-width: 40em;
+}
+
+.titulo {
+  @include f.form-title;
+}
+
+.campos {
+  @include f.form-fields;
+}
+
+.campo {
+  @include f.form-field;
+}
+
+.campo label {
+  @include f.form-label;
+}
+
+.campo input[type='text'] {
+  @include f.form-input;
+}
+
+.campo select {
+  @include f.form-select;
+}
+
+.erro {
+  @include f.form-error;
+}
+
+.linha_campos {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+.linha_campos .campo {
+  flex: 1;
+  min-width: 10em;
+}
+
+textarea {
+  width: 100%;
+  height: 10em;
+  padding: 1em;
+  border-radius: 10px;
+  border: 2px solid t.$color-black;
+  font-family: t.$font-primary;
+}
+
+.checkbox_tamanhos {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.checkbox_tamanho {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.95em;
+}
+
+.upload_imagem {
+  width: 100%;
+  padding: 2em;
+  text-align: center;
+  border: 2px solid t.$color-black;
+  border-radius: 10px;
+}
+
+.upload_imagem input {
+  margin: 0.5em auto 0;
+  display: block;
+}
+
+button[type='submit'] {
+  @include f.form-button;
+}
+
+@include m.md {
+  .linha_campos {
+    flex-direction: column;
+    gap: 1.3em;
+  }
+}

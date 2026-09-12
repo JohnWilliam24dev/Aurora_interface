@@ -1,0 +1,48 @@
+@if (carregando()) {
+  <p class="mensagem_estado">Carregando produto...</p>
+} @else if (erro() || !produto()) {
+  <p class="mensagem_estado">Não foi possível carregar este produto.</p>
+} @else {
+  <div class="product-page">
+    <div class="product-gallery">
+      <figure class="col-10">
+        <img [src]="imagemUrl()" [alt]="produto()!.nome" class="main-image" />
+      </figure>
+    </div>
+
+    <div class="product-info">
+      <div class="product-header">
+        <h1 class="product-title">{{ produto()!.nome }}</h1>
+      </div>
+
+      <div class="product-pricing">
+        <div class="price">R$ {{ produto()!.precoUnitario.toFixed(2) }}</div>
+        <div class="installments">Em até 3 vezes de R$ {{ parcela() }}</div>
+      </div>
+
+      <div class="size-selector">
+        <div class="size-options">
+          @for (tamanho of tamanhosDisponiveis; track tamanho) {
+            <button class="size-option" [class.active]="tamanhoDisponivel(tamanho)" disabled>
+              {{ tamanho }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <div class="cart-actions">
+        <button id="btn_adicionar_carrinho" class="add-to-cart" disabled>
+          Adicionar ao Carrinho
+        </button>
+        <div class="consumer-notice">*Funcionalidade a ser adicionada</div>
+      </div>
+    </div>
+
+    <div class="product-description">
+      <h2>Descrição e Composição</h2>
+      <div class="description-content">
+        <p>{{ produto()!.descricao }}</p>
+      </div>
+    </div>
+  </div>
+}

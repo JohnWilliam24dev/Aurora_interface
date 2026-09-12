@@ -41,6 +41,27 @@ antiga é removida até que sua contraparte em Angular esteja validada.
   renderizar se não tiver permissão, então o "flash de conteúdo proibido" que
   o hack evitava não ocorre mais.
 
+## Bugs do legado corrigidos (Fase 5)
+
+- **Parte decimal do preço descartada silenciosamente**: `Produto.js` fazia
+  `parseFloat(precoUnitario)` diretamente sobre a string digitada com
+  vírgula (ex.: `"108,50"`). Como `parseFloat` não entende vírgula como
+  separador decimal, ele parava de ler no primeiro caractere não numérico e
+  retornava `108` — a parte decimal era perdida em TODO produto cadastrado
+  ou editado com centavos. Corrigido em `shared/utils/preco.ts`
+  (`parsePrecoBr`), que troca vírgula por ponto antes do parse. Usado tanto
+  em `adicionar-produto` quanto em `editar-produto`.
+- **Assimetria do campo `imagem` esclarecida**: a API retorna `imagem` como
+  string base64 em `GET`, mas espera um array de bytes em `POST`/`PUT`. O
+  legado não documentava isso (funcionava "por acidente"); o modelo
+  (`core/models/produto.model.ts`) agora expõe essa assimetria
+  explicitamente com tipos e funções de conversão (`base64ParaBytes`,
+  `arquivoParaBytes`) em vez de reutilizar o mesmo tipo para os dois casos.
+- **Confirmação antes de apagar produto**: o legado apagava o produto
+  imediatamente ao clicar em "Apagar Produto", sem confirmação. Adicionado
+  um `confirm()` antes de chamar `ProdutoService.remover()` — melhoria de
+  baixo risco para evitar exclusão acidental.
+
 ## Rotas planejadas (usadas nos `routerLink` do Header/popups)
 
 Ainda não implementadas (entram nas Fases 4–8), mas os componentes já
@@ -104,8 +125,11 @@ src/
       lazy loading (`loadComponent`) e `authGuard` (`guest-only` nos logins
       e cadastro de consumidor; `ADMINISTRADOR_GERAL`/`GERENCIADOR_FUNCIONARIOS`
       no cadastro de funcionário).
-- [ ] **Fase 5 — Produtos**: listagem (com filtro de categoria),
-      detalhe/consumidor, adicionar (admin), editar (admin).
+- [x] **Fase 5 — Produtos**: listagem (`/produtos`), detalhe/consumidor
+      (`/produtos/:id`), adicionar (`/produtos/adicionar`, admin), editar
+      (`/produtos/:id/editar`, admin, com o padrão "campo vazio mantém valor
+      atual" do legado preservado). 2 bugs do legado corrigidos nesta fase
+      (ver seção de correções abaixo).
 - [ ] **Fase 6 — Carrinho & Pedidos**.
 - [ ] **Fase 7 — Endereço**.
 - [ ] **Fase 8 — Home & páginas de erro** (`index`, `acesso-negado`).
@@ -133,10 +157,11 @@ src/
 | `Infrastructure/Application/CadastroConsumidorApplication.js` | `features/auth/pages/cadastro-consumidor` | ✅ |
 | `Infrastructure/Application/CadastroFuncionarioApplication.js` | `features/auth/pages/cadastro-funcionario` | ✅ |
 | `Infrastructure/Application/EnderecoConsumidorApplication.js` | `features/endereco/pages/cadastro-endereco` | ⏳ |
-| `Infrastructure/Application/AdicionarProdutoApplication.js` | `features/produtos/pages/adicionar-produto` | ⏳ |
-| `Infrastructure/Application/EdicaoProdutoApplication.js` + `Interacoes/EdicaoProduto.js` + `DeletarProdutoApplication.js` | `features/produtos/pages/editar-produto` | ⏳ |
-| `Infrastructure/Application/ProdutoConsumidorApplication.js` | `features/produtos/pages/produto-detalhe` | ⏳ |
-| `Infrastructure/Application/ListarProdutosApplication.js` + `Interacoes/VitrineProduto.js` | `features/produtos/pages/listar-produtos` + `home` | ⏳ |
+| `Infrastructure/Application/AdicionarProdutoApplication.js` | `features/produtos/pages/adicionar-produto` | ✅ |
+| `Infrastructure/Application/EdicaoProdutoApplication.js` + `Interacoes/EdicaoProduto.js` + `DeletarProdutoApplication.js` | `features/produtos/pages/editar-produto` | ✅ |
+| `Infrastructure/Application/ProdutoConsumidorApplication.js` | `features/produtos/pages/produto-detalhe` | ✅ |
+| `Infrastructure/Application/ListarProdutosApplication.js` | `features/produtos/pages/listar-produtos` | ✅ |
+| `Interacoes/VitrineProduto.js` | `home` (vitrine da página inicial) | ⏳ (Fase 8) |
 | `pages/consumer.tela_carrinho.html` | `features/carrinho/pages/carrinho` | ⏳ |
 | `pages/consumer.tela_pedidos.html` | `features/pedidos/pages/pedidos` | ⏳ |
 | `pages/acesso-negado.html` + `RedirecionarIndex.js` | `features/erro/pages/acesso-negado` | ⏳ |

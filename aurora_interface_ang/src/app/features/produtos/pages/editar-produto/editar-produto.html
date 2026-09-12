@@ -1,0 +1,74 @@
+@if (carregando()) {
+  <p class="mensagem_estado">Carregando produto...</p>
+} @else if (erroCarregar() || !produto()) {
+  <p class="mensagem_estado">Não foi possível carregar este produto.</p>
+} @else {
+  <div class="product-page">
+    <div class="product-gallery">
+      <figure class="col-11">
+        <img [src]="imagemPreviewUrl()" alt="" class="main-image" />
+      </figure>
+      <label class="btn_alterar_imagem">
+        Alterar Imagem
+        <input type="file" accept="image/*" hidden (change)="onImagemSelecionada($event)" />
+      </label>
+      <div class="erro">{{ erroImagem() }}</div>
+    </div>
+
+    <div class="product-info">
+      <div class="product-header">
+        <input
+          class="product-title"
+          type="text"
+          [(ngModel)]="nomeInput"
+          [placeholder]="produto()!.nome"
+        />
+        <div class="erro">{{ erroNome() }}</div>
+      </div>
+
+      <div class="product-pricing">
+        <input
+          class="price"
+          type="text"
+          [(ngModel)]="precoInput"
+          [placeholder]="'R$ ' + produto()!.precoUnitario.toFixed(2)"
+        />
+        <div class="erro">{{ erroPreco() }}</div>
+      </div>
+
+      <div class="size-selector">
+        <div class="size-options">
+          @for (tamanho of tamanhosDisponiveis; track tamanho) {
+            <button
+              type="button"
+              class="size-option"
+              [class.active]="tamanhoAtivo(tamanho)"
+              (click)="alternarTamanho(tamanho)"
+            >
+              {{ tamanho }}
+            </button>
+          }
+        </div>
+        <div class="erro">{{ erroTamanho() }}</div>
+      </div>
+
+      <div class="cart-actions">
+        <button class="add-to-cart" disabled>Adicionar ao Carrinho</button>
+        <div class="consumer-notice">*Disponível apenas para contas de consumidor</div>
+      </div>
+    </div>
+
+    <div class="product-description">
+      <h2>Descrição e Composição</h2>
+      <div class="description-content">
+        <textarea [(ngModel)]="descricaoInput" [placeholder]="produto()!.descricao"></textarea>
+        <div class="erro">{{ erroDescricao() }}</div>
+      </div>
+    </div>
+
+    <div class="conteiner_btn">
+      <button class="btn_salvar" [disabled]="enviando" (click)="salvar()">Salvar Alterações</button>
+      <button class="btn_apagar" type="button" (click)="apagar()">Apagar Produto</button>
+    </div>
+  </div>
+}

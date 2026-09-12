@@ -1,0 +1,70 @@
+<section class="pagina_form">
+  <form class="cartao_form" [formGroup]="form" (ngSubmit)="enviar()">
+    <h1 class="titulo">Cadastrar Endereço</h1>
+
+    <div class="campos">
+      <div class="campo">
+        <label for="cep">CEP:</label>
+        <input id="cep" type="text" formControlName="cep" placeholder="Exemplo: 44001000" />
+        <div class="erro">{{ primeiroErro('cep') }}</div>
+      </div>
+
+      <div class="linha_campos">
+        <div class="campo">
+          <label for="rua">Rua:</label>
+          <input id="rua" type="text" formControlName="rua" placeholder="Exemplo: Rua das Flores" />
+          <div class="erro">{{ primeiroErro('rua') }}</div>
+        </div>
+
+        <div class="campo">
+          <label for="numero_casa">Número:</label>
+          <input id="numero_casa" type="text" formControlName="numero_casa" placeholder="Exemplo: 123" />
+          <div class="erro">{{ primeiroErro('numero_casa') }}</div>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="logradouro">Complemento:</label>
+        <input
+          id="logradouro"
+          type="text"
+          formControlName="logradouro"
+          placeholder="Exemplo: Apto 302, Bloco B"
+        />
+        <div class="erro">{{ primeiroErro('logradouro') }}</div>
+      </div>
+
+      <div class="campo">
+        <label for="bairro">Bairro:</label>
+        <input id="bairro" type="text" formControlName="bairro" placeholder="Exemplo: Centro" />
+        <div class="erro">{{ primeiroErro('bairro') }}</div>
+      </div>
+
+      <div class="linha_campos">
+        <div class="campo">
+          <label for="cidade">Cidade:</label>
+          <input
+            id="cidade"
+            type="text"
+            formControlName="cidade"
+            placeholder="Exemplo: Feira de Santana"
+          />
+          <div class="erro">{{ primeiroErro('cidade') }}</div>
+        </div>
+
+        <div class="campo">
+          <label for="estado">Estado:</label>
+          <select id="estado" formControlName="estado">
+            <option value="" disabled>UF</option>
+            @for (uf of estados; track uf) {
+              <option [value]="uf">{{ uf }}</option>
+            }
+          </select>
+          <div class="erro">{{ primeiroErro('estado') }}</div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="enviando">Cadastrar Endereço</button>
+  </form>
+</section>

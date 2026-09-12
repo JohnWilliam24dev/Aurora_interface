@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ItemCarrinho } from '../models/carrinho.model';
+import {
+  ItemCarrinho,
+  ItemCarrinhoDTO,
+  itemCarrinhoFromDTO,
+  itemCarrinhoToDTO,
+} from '../models/carrinho.model';
 
 /** Substitui Gateway/ItemCarrinhoGateway.js. */
 @Injectable({ providedIn: 'root' })
@@ -11,19 +16,27 @@ export class ItemCarrinhoService {
   private readonly baseUrl = `${environment.apiUrl}/itemCarrinho`;
 
   listarTodos(): Observable<ItemCarrinho[]> {
-    return this.http.get<ItemCarrinho[]>(this.baseUrl);
+    return this.http
+      .get<ItemCarrinhoDTO[]>(this.baseUrl)
+      .pipe(map((lista) => lista.map(itemCarrinhoFromDTO)));
   }
 
   buscarPorId(id: number | string): Observable<ItemCarrinho> {
-    return this.http.get<ItemCarrinho>(`${this.baseUrl}/${id}`);
+    return this.http
+      .get<ItemCarrinhoDTO>(`${this.baseUrl}/${id}`)
+      .pipe(map(itemCarrinhoFromDTO));
   }
 
   criar(item: ItemCarrinho): Observable<ItemCarrinho> {
-    return this.http.post<ItemCarrinho>(this.baseUrl, item);
+    return this.http
+      .post<ItemCarrinhoDTO>(this.baseUrl, itemCarrinhoToDTO(item))
+      .pipe(map(itemCarrinhoFromDTO));
   }
 
   atualizar(id: number | string, item: ItemCarrinho): Observable<ItemCarrinho> {
-    return this.http.put<ItemCarrinho>(`${this.baseUrl}/${id}`, item);
+    return this.http
+      .put<ItemCarrinhoDTO>(`${this.baseUrl}/${id}`, itemCarrinhoToDTO(item))
+      .pipe(map(itemCarrinhoFromDTO));
   }
 
   remover(id: number | string): Observable<void> {

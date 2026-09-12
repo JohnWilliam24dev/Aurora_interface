@@ -78,6 +78,31 @@ a cada alteração ou só no checkout? etc.). Os services já existem desde a
 Fase 2 (`CarrinhoService`, `ItemCarrinhoService`, `SimulacaoCompraService`,
 `ItemSimulacaoService`) prontos para quando essa funcionalidade for definida.
 
+## Bugs do legado corrigidos (Fase 7)
+
+- **`cliente_id` hardcoded em 1**: `EnderecoConsumidorApplication.js` fazia
+  `const cliente_id = 1;` — todo endereço cadastrado, de qualquer
+  consumidor logado, era salvo associado ao cliente de id `1`. Corrigido
+  para usar o id do consumidor da sessão real (`AuthService`).
+- **Inconsistência de casing entre camelCase e snake_case no backend**:
+  conferindo o `toJSON()` de cada entidade legada, `Produto`/`Cliente`/
+  `Funcionario` usam camelCase (`precoUnitario`, `nomeCompleto`), mas
+  `Endereco`/`Carrinho`/`ItemCarrinho`/`SimulacaoCompra`/`ItemSimulacao`
+  usam snake_case (`cliente_id`, `valor_total`, `preco_unitario`...). Os
+  services desse segundo grupo, criados na Fase 2, mandavam os campos em
+  camelCase direto pro backend — **estavam quebrados** (nunca tinham sido
+  exercitados por uma tela real até agora). Corrigido com o mesmo padrão
+  DTO↔domínio já usado em Produto/Cliente: `EnderecoDTO`, `CarrinhoDTO`,
+  `ItemCarrinhoDTO`, `SimulacaoCompraDTO`, `ItemSimulacaoDTO` (snake_case) +
+  funções `fromDTO`/`toDTO` convertendo para os modelos camelCase
+  (`Endereco`, `Carrinho`, etc.) usados no resto da aplicação.
+- **Mapeamento de campo preservado (não é bug, é comportamento intencional
+  mantido)**: o formulário do legado tinha um campo rotulado "logradouro"
+  que, na hora de montar o `Endereco`, ia parar no campo `complemento` da
+  entidade (`new Endereco(cliente_id, rua, numero_casa, logradouro, ...)`
+  vs. construtor `(cliente_id, rua, numero, complemento, ...)`). Mantido
+  assim na migração para não incompatibilizar com dados já salvos.
+
 ## Rotas planejadas (usadas nos `routerLink` do Header/popups)
 
 Ainda não implementadas (entram nas Fases 4–8), mas os componentes já
@@ -149,7 +174,9 @@ src/
 - [x] **Fase 6 — Carrinho & Pedidos**: portados como shells estáticos, fiéis
       ao legado (nenhum dos dois tinha lógica real implementada — ver nota
       abaixo). Rotas `/carrinho` e `/pedidos`, restritas a `costumer`.
-- [ ] **Fase 7 — Endereço**.
+- [x] **Fase 7 — Endereço**: cadastro de endereço (`/endereco/cadastro`,
+      restrito a `costumer`). 2 bugs do legado corrigidos (ver seção de
+      correções).
 - [ ] **Fase 8 — Home & páginas de erro** (`index`, `acesso-negado`).
 - [ ] **Fase 9 — Polimento**: lazy loading de rotas, testes unitários,
       revisão de acessibilidade/responsividade, remoção do app legado.
@@ -174,7 +201,7 @@ src/
 | `Infrastructure/Application/LoginFuncionarioApplication.js` | `features/auth/pages/login-funcionario` | ✅ |
 | `Infrastructure/Application/CadastroConsumidorApplication.js` | `features/auth/pages/cadastro-consumidor` | ✅ |
 | `Infrastructure/Application/CadastroFuncionarioApplication.js` | `features/auth/pages/cadastro-funcionario` | ✅ |
-| `Infrastructure/Application/EnderecoConsumidorApplication.js` | `features/endereco/pages/cadastro-endereco` | ⏳ |
+| `Infrastructure/Application/EnderecoConsumidorApplication.js` | `features/endereco/pages/cadastro-endereco` | ✅ |
 | `Infrastructure/Application/AdicionarProdutoApplication.js` | `features/produtos/pages/adicionar-produto` | ✅ |
 | `Infrastructure/Application/EdicaoProdutoApplication.js` + `Interacoes/EdicaoProduto.js` + `DeletarProdutoApplication.js` | `features/produtos/pages/editar-produto` | ✅ |
 | `Infrastructure/Application/ProdutoConsumidorApplication.js` | `features/produtos/pages/produto-detalhe` | ✅ |

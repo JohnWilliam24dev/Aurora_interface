@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Endereco } from '../models/endereco.model';
+import { Endereco, EnderecoDTO, enderecoFromDTO, enderecoToDTO } from '../models/endereco.model';
 
 /** Substitui EnderecoGateway + CadastroEnderecoService (legado). */
 @Injectable({ providedIn: 'root' })
@@ -11,19 +11,25 @@ export class EnderecoService {
   private readonly baseUrl = `${environment.apiUrl}/endereco`;
 
   listarTodos(): Observable<Endereco[]> {
-    return this.http.get<Endereco[]>(this.baseUrl);
+    return this.http
+      .get<EnderecoDTO[]>(this.baseUrl)
+      .pipe(map((lista) => lista.map(enderecoFromDTO)));
   }
 
   buscarPorId(id: number | string): Observable<Endereco> {
-    return this.http.get<Endereco>(`${this.baseUrl}/${id}`);
+    return this.http.get<EnderecoDTO>(`${this.baseUrl}/${id}`).pipe(map(enderecoFromDTO));
   }
 
   cadastrar(endereco: Endereco): Observable<Endereco> {
-    return this.http.post<Endereco>(this.baseUrl, endereco);
+    return this.http
+      .post<EnderecoDTO>(this.baseUrl, enderecoToDTO(endereco))
+      .pipe(map(enderecoFromDTO));
   }
 
   atualizar(id: number | string, endereco: Endereco): Observable<Endereco> {
-    return this.http.put<Endereco>(`${this.baseUrl}/${id}`, endereco);
+    return this.http
+      .put<EnderecoDTO>(`${this.baseUrl}/${id}`, enderecoToDTO(endereco))
+      .pipe(map(enderecoFromDTO));
   }
 
   remover(id: number | string): Observable<void> {

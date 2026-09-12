@@ -84,4 +84,13 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { allow: ['costumer'] },
   },
+  {
+    path: 'endereco/cadastro',
+    loadComponent: () =>
+      import('./features/endereco/pages/cadastro-endereco/cadastro-endereco').then(
+        (m) => m.CadastroEndereco,
+      ),
+    canActivate: [authGuard],
+    data: { allow: ['costumer'] },
+  },
 ];

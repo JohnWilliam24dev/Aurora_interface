@@ -1,0 +1,135 @@
+@use "styles/tokens" as t;
+@use "styles/mixins" as m;
+
+:host {
+  display: block;
+}
+
+.conteiner_carrinho_geral {
+  width: 100%;
+  padding: 2em;
+  margin-top: 1em;
+  font-family: t.$font-primary;
+}
+
+.conteiner_carinhos_dados {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  gap: 3em;
+  margin-top: 3em;
+}
+
+.conteiner_carrinho_produtos {
+  flex: 1 1 60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-right: 3em;
+  border: none;
+  border-right: 1px solid t.$color-black;
+}
+
+.conteiner_mensagem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 5em;
+  text-align: center;
+}
+
+.conteiner_mensagem figure {
+  width: 8em;
+  height: 8em;
+  margin: 0 0 1em;
+}
+
+.conteiner_mensagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.conteiner_mensagem h2 {
+  font-size: 2em;
+}
+
+.conteiner_mensagem p {
+  font-size: 1.1em;
+  max-width: 28em;
+}
+
+.conteiner_carrinho_info {
+  flex: 1 1 35%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.conteiner_carrinho_detalhes {
+  width: 100%;
+  border: 1px solid t.$color-black;
+  border-radius: 8px;
+}
+
+.produto,
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 1em;
+}
+
+.total {
+  border: none;
+  border-top: 1px solid t.$color-black;
+}
+
+.produto p,
+.total p {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.conteiner_carrinho_info button {
+  width: 60%;
+  height: 3em;
+  background-color: t.$color-black;
+  color: t.$color-white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+@include m.lg {
+  .conteiner_carinhos_dados {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .conteiner_carrinho_produtos {
+    border: none;
+    border-bottom: 1px solid t.$color-black;
+    padding-right: 0;
+    padding-bottom: 2em;
+  }
+}
+
+@include m.md {
+  .conteiner_carrinho_produtos {
+    padding: 0;
+  }
+
+  .conteiner_mensagem h2 {
+    font-size: 1.8em;
+  }
+
+  .conteiner_mensagem p {
+    font-size: 1em;
+  }
+}

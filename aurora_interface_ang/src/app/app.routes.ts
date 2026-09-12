@@ -70,4 +70,18 @@ export const routes: Routes = [
         (m) => m.ProdutoDetalhe,
       ),
   },
+  {
+    path: 'carrinho',
+    loadComponent: () =>
+      import('./features/carrinho/pages/carrinho/carrinho').then((m) => m.Carrinho),
+    canActivate: [authGuard],
+    data: { allow: ['costumer'] },
+  },
+  {
+    path: 'pedidos',
+    loadComponent: () =>
+      import('./features/pedidos/pages/pedidos/pedidos').then((m) => m.Pedidos),
+    canActivate: [authGuard],
+    data: { allow: ['costumer'] },
+  },
 ];

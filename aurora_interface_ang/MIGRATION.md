@@ -62,6 +62,22 @@ antiga é removida até que sua contraparte em Angular esteja validada.
   um `confirm()` antes de chamar `ProdutoService.remover()` — melhoria de
   baixo risco para evitar exclusão acidental.
 
+## Pendência de produto, não de migração (Fase 6)
+
+`consumer.tela_carrinho.html` e `consumer.tela_pedidos.html` **nunca tiveram
+lógica real no legado** — nenhum dos dois tinha um `Application.js`
+associado; eram apenas shells estáticos ("carrinho vazio", "R$ 0" fixo,
+"lista de pedidos vazia"). Portamos exatamente esse comportamento
+(`features/carrinho`, `features/pedidos`).
+
+Implementar carrinho/pedidos de verdade — adicionar item, atualizar
+quantidade, fechar pedido (`SimulacaoCompra`) — é uma decisão de **produto**,
+não uma tarefa de migração: precisa de definição de fluxo (como o item entra
+no carrinho a partir da tela de produto? o carrinho é persistido no backend
+a cada alteração ou só no checkout? etc.). Os services já existem desde a
+Fase 2 (`CarrinhoService`, `ItemCarrinhoService`, `SimulacaoCompraService`,
+`ItemSimulacaoService`) prontos para quando essa funcionalidade for definida.
+
 ## Rotas planejadas (usadas nos `routerLink` do Header/popups)
 
 Ainda não implementadas (entram nas Fases 4–8), mas os componentes já
@@ -130,7 +146,9 @@ src/
       (`/produtos/:id/editar`, admin, com o padrão "campo vazio mantém valor
       atual" do legado preservado). 2 bugs do legado corrigidos nesta fase
       (ver seção de correções abaixo).
-- [ ] **Fase 6 — Carrinho & Pedidos**.
+- [x] **Fase 6 — Carrinho & Pedidos**: portados como shells estáticos, fiéis
+      ao legado (nenhum dos dois tinha lógica real implementada — ver nota
+      abaixo). Rotas `/carrinho` e `/pedidos`, restritas a `costumer`.
 - [ ] **Fase 7 — Endereço**.
 - [ ] **Fase 8 — Home & páginas de erro** (`index`, `acesso-negado`).
 - [ ] **Fase 9 — Polimento**: lazy loading de rotas, testes unitários,
@@ -162,7 +180,7 @@ src/
 | `Infrastructure/Application/ProdutoConsumidorApplication.js` | `features/produtos/pages/produto-detalhe` | ✅ |
 | `Infrastructure/Application/ListarProdutosApplication.js` | `features/produtos/pages/listar-produtos` | ✅ |
 | `Interacoes/VitrineProduto.js` | `home` (vitrine da página inicial) | ⏳ (Fase 8) |
-| `pages/consumer.tela_carrinho.html` | `features/carrinho/pages/carrinho` | ⏳ |
-| `pages/consumer.tela_pedidos.html` | `features/pedidos/pages/pedidos` | ⏳ |
+| `pages/consumer.tela_carrinho.html` | `features/carrinho/pages/carrinho` (shell estático, fiel ao legado) | ✅ |
+| `pages/consumer.tela_pedidos.html` | `features/pedidos/pages/pedidos` (shell estático, fiel ao legado) | ✅ |
 | `pages/acesso-negado.html` + `RedirecionarIndex.js` | `features/erro/pages/acesso-negado` | ⏳ |
 | `index.html` | `features/home/pages/home` | ⏳ |

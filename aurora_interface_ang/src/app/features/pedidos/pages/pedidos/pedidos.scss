@@ -1,0 +1,17 @@
+@use "styles/tokens" as t;
+
+:host {
+  display: block;
+}
+
+.conteiner_pedido {
+  width: 100%;
+  padding: 2em;
+  margin-top: 1em;
+  font-family: t.$font-primary;
+}
+
+.conteiner_pedido p {
+  text-align: center;
+  font-size: 1.5em;
+}

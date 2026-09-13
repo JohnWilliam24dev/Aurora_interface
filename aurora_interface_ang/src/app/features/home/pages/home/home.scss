@@ -1,0 +1,286 @@
+@use "styles/tokens" as t;
+@use "styles/mixins" as m;
+
+:host {
+  display: block;
+}
+
+main {
+  width: 100vw;
+  height: auto;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  font-family: t.$font-primary;
+}
+
+.conteiner_banner {
+  height: auto;
+  margin: 1em 0 2em 0;
+}
+
+.conteiner_banner figure {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.conteiner_banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.conteiner_patrocinadores {
+  height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: t.$color-yellow-secondary;
+  margin: 0 0 3em 0;
+  flex-wrap: wrap;
+}
+
+.conteiner_patrocinadores ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  list-style: none;
+  margin: auto;
+  padding: 0;
+  padding-top: 0.5em;
+  gap: 3.5em;
+}
+
+.conteiner_patrocinadores figure {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.conteiner_patrocinadores img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.title_secao_em_alta figure,
+.title_secao_leveza figure,
+.title_secao_seu_mood figure {
+  margin: 1em auto 0 3em;
+}
+
+.title_secao_em_alta figure {
+  width: 14%;
+  height: 34%;
+}
+
+.title_secao_leveza figure {
+  width: 38%;
+  height: 58%;
+}
+
+.title_secao_seu_mood figure {
+  width: 27%;
+  height: 47%;
+}
+
+.title_secao_em_alta img,
+.title_secao_leveza img,
+.title_secao_seu_mood img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.conteiner_secao_em_alta {
+  height: 28em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  list-style: none;
+  gap: 6.5em;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+}
+
+.conteiner_secao_em_alta li {
+  height: 95%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.conteiner_imagem_produto {
+  height: 17em;
+}
+
+.conteiner_imagem_produto figure {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.conteiner_imagem_produto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.conteiner_descricao_produto_em_alta {
+  margin: 1.5em 0.5em 1em 0.5em;
+  font-size: large;
+  font-weight: 900;
+  flex-wrap: wrap;
+}
+
+.conteiner_nome_produto_em_alta {
+  height: 4em;
+  margin: auto;
+}
+
+.conteiner_preco_produto_em_alta {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 1em;
+}
+
+.conteiner_preco_produto_em_alta p {
+  margin: 0;
+  margin-right: auto;
+  font-size: 1em;
+  line-height: 1;
+}
+
+.conteiner_preco_produto_em_alta figure {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.conteiner_preco_produto_em_alta img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@include m.xl {
+  .conteiner_banner {
+    margin: 1em 0;
+  }
+
+  .conteiner_patrocinadores {
+    height: 7em;
+  }
+
+  .conteiner_patrocinadores ul {
+    gap: 2.8em;
+  }
+
+  .conteiner_patrocinadores figure {
+    width: 95%;
+    height: 95%;
+  }
+}
+
+@include m.lg {
+  .conteiner_patrocinadores {
+    height: 6em;
+  }
+
+  .conteiner_patrocinadores ul {
+    gap: 2em;
+  }
+
+  .conteiner_secao_em_alta {
+    height: 23em;
+    gap: 5em;
+  }
+
+  .conteiner_secao_em_alta li {
+    height: 90%;
+  }
+
+  .conteiner_imagem_produto {
+    height: 12em;
+  }
+
+  .conteiner_descricao_produto_em_alta {
+    font-size: medium;
+  }
+}
+
+@include m.md {
+  .conteiner_banner {
+    padding: 0;
+    margin: 1em 0 0.5em 0;
+  }
+
+  .conteiner_patrocinadores {
+    height: 4em;
+  }
+
+  .conteiner_patrocinadores ul {
+    gap: 1em;
+  }
+
+  .conteiner_secao_em_alta {
+    height: 18em;
+    gap: 3em;
+  }
+
+  .conteiner_imagem_produto {
+    height: 9em;
+  }
+
+  .conteiner_descricao_produto_em_alta {
+    font-size: small;
+  }
+}
+
+@include m.sm {
+  .conteiner_patrocinadores {
+    height: 3em;
+  }
+
+  .conteiner_patrocinadores ul {
+    gap: 0.8em;
+  }
+
+  .conteiner_secao_em_alta {
+    height: 12.4em;
+    gap: 2em;
+  }
+
+  .conteiner_imagem_produto {
+    height: 7em;
+  }
+
+  .conteiner_descricao_produto_em_alta {
+    font-size: 0.45em;
+  }
+}
+
+@media (max-width: 700px) {
+  .conteiner_patrocinadores {
+    display: none;
+  }
+}

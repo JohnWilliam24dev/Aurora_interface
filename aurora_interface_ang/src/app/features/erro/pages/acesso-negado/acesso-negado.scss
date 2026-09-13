@@ -1,0 +1,35 @@
+@use "styles/mixins" as m;
+
+:host {
+  display: block;
+}
+
+#conteiner_erro {
+  min-height: 60vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+#conteiner_erro h1 {
+  font-size: 10em;
+  margin: 0;
+}
+
+#conteiner_erro p {
+  font-size: 1em;
+}
+
+@include m.md {
+  #conteiner_erro h1 {
+    font-size: 8em;
+  }
+
+  #conteiner_erro p {
+    font-size: 0.8em;
+  }
+}

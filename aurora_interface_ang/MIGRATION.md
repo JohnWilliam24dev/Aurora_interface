@@ -103,6 +103,25 @@ Fase 2 (`CarrinhoService`, `ItemCarrinhoService`, `SimulacaoCompraService`,
   vs. construtor `(cliente_id, rua, numero, complemento, ...)`). Mantido
   assim na migração para não incompatibilizar com dados já salvos.
 
+## Melhorias conscientes (Fase 8)
+
+- **Vitrine da home sem IDs fixos**: `VitrineProduto.js` buscava sempre os
+  produtos de id `28` a `35` (`27 + n` para `n` de 1 a 8) para preencher as
+  seções "Em Alta", "Leveza" e "Seu Mood" — funciona só por coincidência,
+  com aquele banco específico, e quebra (produto não encontrado) em
+  qualquer banco novo ou diferente. A home agora busca a lista real de
+  produtos (`ProdutoService.listarTodos()`) e distribui os primeiros nas
+  vitrines, então funciona com qualquer conjunto de produtos cadastrados.
+- **Placeholder esquecido removido**: a vitrine "Seu Mood" tinha, no HTML
+  legado, uma descrição de produto fixa ("Óculos de sol retrô vermelho...")
+  no lugar do nome dinâmico do segundo item — parecia conteúdo de teste
+  esquecido. Corrigido para mostrar o nome real do produto, como as outras
+  vitrines.
+- **Rota wildcard (`**`) adicionada**: o legado não tinha um "404" de rota
+  no sentido Angular (qualquer URL desconhecida ia parar num 404 do próprio
+  servidor de arquivos estáticos). Como agora o roteamento é client-side,
+  qualquer caminho não mapeado cai na mesma página de Acesso Negado.
+
 ## Rotas planejadas (usadas nos `routerLink` do Header/popups)
 
 Ainda não implementadas (entram nas Fases 4–8), mas os componentes já
@@ -177,7 +196,9 @@ src/
 - [x] **Fase 7 — Endereço**: cadastro de endereço (`/endereco/cadastro`,
       restrito a `costumer`). 2 bugs do legado corrigidos (ver seção de
       correções).
-- [ ] **Fase 8 — Home & páginas de erro** (`index`, `acesso-negado`).
+- [x] **Fase 8 — Home & páginas de erro** (`index`, `acesso-negado`): vitrine
+      da home busca produtos reais em vez de depender de IDs fixos (ver
+      seção de melhorias); rota `**` (wildcard) também cai em Acesso Negado.
 - [ ] **Fase 9 — Polimento**: lazy loading de rotas, testes unitários,
       revisão de acessibilidade/responsividade, remoção do app legado.
 
@@ -206,8 +227,8 @@ src/
 | `Infrastructure/Application/EdicaoProdutoApplication.js` + `Interacoes/EdicaoProduto.js` + `DeletarProdutoApplication.js` | `features/produtos/pages/editar-produto` | ✅ |
 | `Infrastructure/Application/ProdutoConsumidorApplication.js` | `features/produtos/pages/produto-detalhe` | ✅ |
 | `Infrastructure/Application/ListarProdutosApplication.js` | `features/produtos/pages/listar-produtos` | ✅ |
-| `Interacoes/VitrineProduto.js` | `home` (vitrine da página inicial) | ⏳ (Fase 8) |
+| `Interacoes/VitrineProduto.js` | `home` (vitrine da página inicial) | ✅ |
 | `pages/consumer.tela_carrinho.html` | `features/carrinho/pages/carrinho` (shell estático, fiel ao legado) | ✅ |
 | `pages/consumer.tela_pedidos.html` | `features/pedidos/pages/pedidos` (shell estático, fiel ao legado) | ✅ |
-| `pages/acesso-negado.html` + `RedirecionarIndex.js` | `features/erro/pages/acesso-negado` | ⏳ |
-| `index.html` | `features/home/pages/home` | ⏳ |
+| `pages/acesso-negado.html` + `RedirecionarIndex.js` | `features/erro/pages/acesso-negado` | ✅ |
+| `index.html` | `features/home/pages/home` | ✅ |

@@ -1,0 +1,130 @@
+<main class="row">
+  <div class="conteiner_banner col-md-10 col-10">
+    <a routerLink="/produtos">
+      <figure>
+        <img [src]="assetUrl('banner_tela_inicial_1_1420.png')" alt="banner_tela_inicial_1" />
+      </figure>
+    </a>
+  </div>
+
+  <div class="conteiner_patrocinadores col-xl-12">
+    <ul class="row">
+      <li class="col-1">
+        <figure><img [src]="assetUrl('logo_hem._176.png')" alt="logo_hem" /></figure>
+      </li>
+      <li class="col-1">
+        <figure><img [src]="assetUrl('logo_obey.png')" alt="logo_obey" /></figure>
+      </li>
+      <li class="col-2">
+        <figure><img [src]="assetUrl('logo_shopify.png')" alt="logo_shopify" /></figure>
+      </li>
+      <li class="col-2">
+        <figure><img [src]="assetUrl('logo_lacoste.png')" alt="logo_lacoste" /></figure>
+      </li>
+      <li class="col-1">
+        <figure><img [src]="assetUrl('logo_levi.png')" alt="logo_levi" /></figure>
+      </li>
+      <li class="col-2">
+        <figure><img [src]="assetUrl('logo_amazon.png')" alt="logo_amazon" /></figure>
+      </li>
+    </ul>
+  </div>
+
+  @if (!carregando()) {
+    @if (vitrineEmAlta().length) {
+      <div class="conteiner_vitrine_em_alta col-xl-9 col-lg-12">
+        <div class="title_secao_em_alta">
+          <figure><img [src]="assetUrl('em_alta_titulo.png')" alt="em_alta" /></figure>
+        </div>
+        <ul class="conteiner_secao_em_alta col-xl-12 row">
+          @for (produto of vitrineEmAlta(); track produto.id) {
+            <li class="col-3 conteiner_produtos" (click)="abrirProduto(produto)">
+              <div class="conteiner_imagem_produto">
+                <figure>
+                  <img class="produto_img" [src]="'data:image/jpeg;base64,' + produto.imagem" [alt]="produto.nome" />
+                </figure>
+              </div>
+              <div class="conteiner_descricao_produto_em_alta">
+                <div class="conteiner_nome_produto_em_alta">
+                  <p class="nome_produto">{{ produto.nome }}</p>
+                </div>
+                <div class="conteiner_preco_produto_em_alta">
+                  <p class="preco_produto">R$ {{ produto.precoUnitario.toFixed(2) }}</p>
+                  <figure><img [src]="assetUrl('arrow_50x50.png')" alt="arrow_icon" /></figure>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    @if (vitrineLeveza().length) {
+      <div class="conteiner_vitrine_em_alta col-xl-9 col-lg-12">
+        <div class="title_secao_leveza">
+          <figure><img [src]="assetUrl('leveza_em_titulo.png')" alt="leveza_em_titulo" /></figure>
+        </div>
+        <ul class="conteiner_secao_em_alta col-xl-12 row">
+          @for (produto of vitrineLeveza(); track produto.id) {
+            <li class="col-3 conteiner_produtos" (click)="abrirProduto(produto)">
+              <div class="conteiner_imagem_produto">
+                <figure>
+                  <img class="produto_img" [src]="'data:image/jpeg;base64,' + produto.imagem" [alt]="produto.nome" />
+                </figure>
+              </div>
+              <div class="conteiner_descricao_produto_em_alta">
+                <div class="conteiner_nome_produto_em_alta">
+                  <p class="nome_produto">{{ produto.nome }}</p>
+                </div>
+                <div class="conteiner_preco_produto_em_alta">
+                  <p class="preco_produto">R$ {{ produto.precoUnitario.toFixed(2) }}</p>
+                  <figure><img [src]="assetUrl('arrow_50x50.png')" alt="arrow_icon" /></figure>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    <div class="conteiner_banner col-12">
+      <figure>
+        <img [src]="assetUrl('banner_tela_inicial_2.png')" alt="banner_tela_inicial_2" />
+      </figure>
+    </div>
+
+    @if (vitrineSeuMood().length) {
+      <div class="conteiner_vitrine_em_alta col-xl-9 col-lg-12">
+        <div class="title_secao_seu_mood">
+          <figure><img [src]="assetUrl('seu_mood_titulo.png')" alt="seu_mood_titulo" /></figure>
+        </div>
+        <ul class="conteiner_secao_em_alta col-xl-12 row">
+          @for (produto of vitrineSeuMood(); track produto.id) {
+            <li class="col-5 conteiner_produtos" (click)="abrirProduto(produto)">
+              <div class="conteiner_imagem_produto">
+                <figure>
+                  <img class="produto_img" [src]="'data:image/jpeg;base64,' + produto.imagem" [alt]="produto.nome" />
+                </figure>
+              </div>
+              <div class="conteiner_descricao_produto_em_alta">
+                <div class="conteiner_nome_produto_em_alta">
+                  <p class="nome_produto">{{ produto.nome }}</p>
+                </div>
+                <div class="conteiner_preco_produto_em_alta">
+                  <p class="preco_produto">R$ {{ produto.precoUnitario.toFixed(2) }}</p>
+                  <figure><img [src]="assetUrl('arrow_50x50.png')" alt="arrow_icon" /></figure>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+
+    <div class="conteiner_banner col-10">
+      <figure>
+        <img [src]="assetUrl('banner_tela_inicial_3.png')" alt="banner_tela_inicial_3" />
+      </figure>
+    </div>
+  }
+</main>

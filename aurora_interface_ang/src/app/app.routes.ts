@@ -3,6 +3,10 @@ import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadComponent: () => import('./features/home/pages/home/home').then((m) => m.Home),
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./features/auth/pages/login-consumidor/login-consumidor').then(
@@ -92,5 +96,15 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
     data: { allow: ['costumer'] },
+  },
+  {
+    path: 'acesso-negado',
+    loadComponent: () =>
+      import('./features/erro/pages/acesso-negado/acesso-negado').then((m) => m.AcessoNegado),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./features/erro/pages/acesso-negado/acesso-negado').then((m) => m.AcessoNegado),
   },
 ];

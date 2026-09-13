@@ -1,4 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { ProdutoService } from '../../../../core/services/produto.service';
 import { Produto } from '../../../../core/models/produto.model';
@@ -18,6 +19,7 @@ const TAMANHOS_DISPONIVEIS = ['PP', 'P', 'M', 'G', 'GG'];
 export class ProdutoDetalhe {
   private readonly route = inject(ActivatedRoute);
   private readonly produtoService = inject(ProdutoService);
+  private readonly title = inject(Title);
 
   protected readonly tamanhosDisponiveis = TAMANHOS_DISPONIVEIS;
   protected readonly produto = signal<Produto | null>(null);
@@ -45,6 +47,7 @@ export class ProdutoDetalhe {
     this.produtoService.buscarPorId(id).subscribe({
       next: (produto) => {
         this.produto.set(produto);
+        this.title.setTitle(`Aurora | ${produto.nome}`);
         this.carregando.set(false);
       },
       error: () => {

@@ -20,6 +20,7 @@
         <input
           class="product-title"
           type="text"
+          aria-label="Nome do produto"
           [(ngModel)]="nomeInput"
           [placeholder]="produto()!.nome"
         />
@@ -30,6 +31,7 @@
         <input
           class="price"
           type="text"
+          aria-label="Preço do produto"
           [(ngModel)]="precoInput"
           [placeholder]="'R$ ' + produto()!.precoUnitario.toFixed(2)"
         />
@@ -43,6 +45,7 @@
               type="button"
               class="size-option"
               [class.active]="tamanhoAtivo(tamanho)"
+              [attr.aria-pressed]="tamanhoAtivo(tamanho)"
               (click)="alternarTamanho(tamanho)"
             >
               {{ tamanho }}
@@ -61,7 +64,7 @@
     <div class="product-description">
       <h2>Descrição e Composição</h2>
       <div class="description-content">
-        <textarea [(ngModel)]="descricaoInput" [placeholder]="produto()!.descricao"></textarea>
+        <textarea [(ngModel)]="descricaoInput" aria-label="Descrição do produto" [placeholder]="produto()!.descricao"></textarea>
         <div class="erro">{{ erroDescricao() }}</div>
       </div>
     </div>

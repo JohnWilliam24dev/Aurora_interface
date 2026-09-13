@@ -23,7 +23,7 @@
       <div class="size-selector">
         <div class="size-options">
           @for (tamanho of tamanhosDisponiveis; track tamanho) {
-            <button class="size-option" [class.active]="tamanhoDisponivel(tamanho)" disabled>
+            <button class="size-option" [class.active]="tamanhoDisponivel(tamanho)" [attr.aria-pressed]="tamanhoDisponivel(tamanho)" disabled>
               {{ tamanho }}
             </button>
           }

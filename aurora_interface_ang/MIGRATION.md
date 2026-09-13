@@ -199,8 +199,33 @@ src/
 - [x] **Fase 8 — Home & páginas de erro** (`index`, `acesso-negado`): vitrine
       da home busca produtos reais em vez de depender de IDs fixos (ver
       seção de melhorias); rota `**` (wildcard) também cai em Acesso Negado.
-- [ ] **Fase 9 — Polimento**: lazy loading de rotas, testes unitários,
-      revisão de acessibilidade/responsividade, remoção do app legado.
+- [x] **Fase 9 — Polimento**: títulos de página dinâmicos por rota (Angular
+      Router `title`, com `Aurora | Produto` sendo sobrescrito pelo nome
+      real do produto, replicando `document.title` do legado), `lang="pt-br"`
+      + favicon corrigidos no `index.html`, `aria-label`/`aria-pressed` nos
+      campos e botões de tamanho sem rótulo visível, testes unitários reais
+      para a lógica crítica (validators, `parsePrecoBr`, `AuthService`,
+      `authGuard` — 48 testes). Lazy loading via `loadComponent` já estava
+      em todas as rotas desde que foram criadas (fases 4–8). Remoção do app
+      legado **não foi feita** — ver decisão pendente abaixo.
+
+## Decisão pendente: remoção do app legado
+
+As **9 fases da migração estão concluídas**: toda página com lógica real no
+legado tem uma equivalente em Angular funcionando, testada e revisada. O que
+falta é uma decisão que só o dono do projeto deve tomar, não algo para eu
+resolver sozinho:
+
+- **Quando** apagar o código legado (`Infrastructure/`, `pages/`, `styles/`,
+  `index.html`, `assets/` — já vazio desde a remoção das imagens) do
+  repositório.
+- Se antes disso quer rodar os dois lado a lado por um tempo em produção
+  (a sessão em `sessionStorage` já é compatível entre os dois — ver
+  `AuthService`), ou trocar de uma vez.
+- Se quer manter o histórico do legado numa tag/branch antes de apagar.
+
+Nenhum arquivo do legado foi tocado ou removido durante esta migração além
+da pasta `assets/` (já removida por você, fora do escopo deste trabalho).
 
 ## Mapeamento arquivo a arquivo (legado → Angular)
 

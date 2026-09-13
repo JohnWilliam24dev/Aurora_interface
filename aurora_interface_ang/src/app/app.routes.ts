@@ -4,10 +4,12 @@ import { authGuard } from './core/guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
+    title: 'Aurora | Moda Feminina',
     loadComponent: () => import('./features/home/pages/home/home').then((m) => m.Home),
   },
   {
     path: 'login',
+    title: 'Aurora | Login',
     loadComponent: () =>
       import('./features/auth/pages/login-consumidor/login-consumidor').then(
         (m) => m.LoginConsumidor,
@@ -17,6 +19,7 @@ export const routes: Routes = [
   },
   {
     path: 'cadastro',
+    title: 'Aurora | Criar Conta',
     loadComponent: () =>
       import('./features/auth/pages/cadastro-consumidor/cadastro-consumidor').then(
         (m) => m.CadastroConsumidor,
@@ -26,6 +29,7 @@ export const routes: Routes = [
   },
   {
     path: 'funcionario/login',
+    title: 'Aurora | Login Funcionário',
     loadComponent: () =>
       import('./features/auth/pages/login-funcionario/login-funcionario').then(
         (m) => m.LoginFuncionario,
@@ -35,6 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'funcionario/cadastro',
+    title: 'Aurora | Cadastro de Funcionário',
     loadComponent: () =>
       import('./features/auth/pages/cadastro-funcionario/cadastro-funcionario').then(
         (m) => m.CadastroFuncionario,
@@ -44,6 +49,7 @@ export const routes: Routes = [
   },
   {
     path: 'produtos',
+    title: 'Aurora | Produtos',
     loadComponent: () =>
       import('./features/produtos/pages/listar-produtos/listar-produtos').then(
         (m) => m.ListarProdutos,
@@ -51,6 +57,7 @@ export const routes: Routes = [
   },
   {
     path: 'produtos/adicionar',
+    title: 'Aurora | Adicionar Produto',
     loadComponent: () =>
       import('./features/produtos/pages/adicionar-produto/adicionar-produto').then(
         (m) => m.AdicionarProduto,
@@ -60,6 +67,7 @@ export const routes: Routes = [
   },
   {
     path: 'produtos/:id/editar',
+    title: 'Aurora | Editar Produto',
     loadComponent: () =>
       import('./features/produtos/pages/editar-produto/editar-produto').then(
         (m) => m.EditarProduto,
@@ -69,6 +77,7 @@ export const routes: Routes = [
   },
   {
     path: 'produtos/:id',
+    title: 'Aurora | Produto',
     loadComponent: () =>
       import('./features/produtos/pages/produto-detalhe/produto-detalhe').then(
         (m) => m.ProdutoDetalhe,
@@ -76,6 +85,7 @@ export const routes: Routes = [
   },
   {
     path: 'carrinho',
+    title: 'Aurora | Carrinho',
     loadComponent: () =>
       import('./features/carrinho/pages/carrinho/carrinho').then((m) => m.Carrinho),
     canActivate: [authGuard],
@@ -83,6 +93,7 @@ export const routes: Routes = [
   },
   {
     path: 'pedidos',
+    title: 'Aurora | Pedidos',
     loadComponent: () =>
       import('./features/pedidos/pages/pedidos/pedidos').then((m) => m.Pedidos),
     canActivate: [authGuard],
@@ -90,6 +101,7 @@ export const routes: Routes = [
   },
   {
     path: 'endereco/cadastro',
+    title: 'Aurora | Cadastrar Endereço',
     loadComponent: () =>
       import('./features/endereco/pages/cadastro-endereco/cadastro-endereco').then(
         (m) => m.CadastroEndereco,
@@ -99,11 +111,13 @@ export const routes: Routes = [
   },
   {
     path: 'acesso-negado',
+    title: 'Aurora | Acesso Negado',
     loadComponent: () =>
       import('./features/erro/pages/acesso-negado/acesso-negado').then((m) => m.AcessoNegado),
   },
   {
     path: '**',
+    title: 'Aurora | Acesso Negado',
     loadComponent: () =>
       import('./features/erro/pages/acesso-negado/acesso-negado').then((m) => m.AcessoNegado),
   },
